@@ -10,9 +10,9 @@ import (
 	"github.com/jackc/pgx/v4"
 
 	"app/pkg/tools/transaction"
+	log "app/pkg/type/logger"
 	"app/services/contact/internal/domain/contact"
-	"app/services/contact/internal/repository/storage_template_1/postgres/dao"
-		log "app/pkg/type/logger"
+	"app/services/contact/internal/repository/storage/postgres/dao"
 )
 
 func (r *Repository) CreateContactIntoGroup(c context.Context, groupID uuid.UUID, contacts ...*contact.Contact) ([]*contact.Contact, error) {
@@ -191,4 +191,3 @@ func (r *Repository) checkExistContactInGroup(ctx context.Context, tx pgx.Tx, gr
 
 	return listExist, mapExist, nil
 }
-

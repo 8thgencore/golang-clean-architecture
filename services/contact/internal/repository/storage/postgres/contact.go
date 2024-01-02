@@ -16,7 +16,7 @@ import (
 	log "app/pkg/type/logger"
 	"app/pkg/type/queryParameter"
 	"app/services/contact/internal/domain/contact"
-	"app/services/contact/internal/repository/storage_template_1/postgres/dao"
+	"app/services/contact/internal/repository/storage/postgres/dao"
 )
 
 var mappingSortContact = map[columnCode.ColumnCode]string{

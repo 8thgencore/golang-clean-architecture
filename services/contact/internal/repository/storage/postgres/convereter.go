@@ -11,7 +11,7 @@ import (
 	"app/services/contact/internal/domain/contact/name"
 	"app/services/contact/internal/domain/contact/patronymic"
 	"app/services/contact/internal/domain/contact/surname"
-	"app/services/contact/internal/repository/storage_template_1/postgres/dao"
+	"app/services/contact/internal/repository/storage/postgres/dao"
 )
 
 func (r Repository) toCopyFromSource(contacts ...*contact.Contact) pgx.CopyFromSource {

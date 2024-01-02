@@ -14,7 +14,7 @@ import (
 	log "app/pkg/type/logger"
 	deliveryGrpc "app/services/contact/internal/delivery/grpc"
 	deliveryHttp "app/services/contact/internal/delivery/http"
-	repositoryStorage "app/services/contact/internal/repository/storage_template_1/postgres"
+	repositoryStorage "app/services/contact/internal/repository/storage/postgres"
 	useCaseContact "app/services/contact/internal/useCase/contact"
 	useCaseGroup "app/services/contact/internal/useCase/group"
 )

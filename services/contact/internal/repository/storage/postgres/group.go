@@ -17,7 +17,7 @@ import (
 	log "app/pkg/type/logger"
 	"app/pkg/type/queryParameter"
 	"app/services/contact/internal/domain/group"
-	"app/services/contact/internal/repository/storage_template_1/postgres/dao"
+	"app/services/contact/internal/repository/storage/postgres/dao"
 	"app/services/contact/internal/useCase"
 )
 
