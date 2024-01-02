@@ -1,24 +1,22 @@
 version: "3.8"
 
 services:
-  # app:
-  #   build:
-  #     context: .
-  #     target: dev
-  #   ports:
-  #     - "8080:8080"
-  #   command: [ "make", "local_run" ]
-  #   environment:
-  #     POSTGRES_DB: clean_architecture
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: postgres
-  #   volumes:
-  #     - .:/usr/src/app/
-  #   depends_on:
-  #     postgres:
-  #       condition: service_healthy
-  #   networks:
-  #     - service-network
+  app:
+    build:
+      context: .
+      dockerfile: ./deploy/contact.Dockerfile
+    ports:
+      - "8480:8080"
+    volumes:
+      - .:/usr/src/app/
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - service-network
 
   postgres:
     image: postgres:14

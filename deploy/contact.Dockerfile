@@ -1,5 +1,7 @@
+# Stage 1: Build stage
 FROM golang:1.21-alpine3.19 as builder
 
+# Set necessary environment variables
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     GOOS=linux \
@@ -8,17 +10,30 @@ ENV GO111MODULE=on \
 # Install dependencies
 RUN apk add --update curl
 
-WORKDIR /app
+# Set the working directory inside the container
+WORKDIR /usr/src/app
 
+# Copy the Go module and Go sum files
+COPY go.mod .
+COPY go.sum .
+
+# Download dependencies
+RUN go mod download
+
+# Copy the entire project to the working directory
 COPY . .
-RUN go mod vendor
+
+# Build the application
 RUN go build ./services/contact/cmd/app
 
+# Stage 2: Final stage
 FROM scratch
+
+# Set the working directory inside the container
 WORKDIR /
 
-COPY --from=builder /app/app .
-COPY --from=builder /app/services/contact/internal/repository/storage/postgres/migrations /services/contact/internal/repository/storage/postgres/migrations
-COPY --from=builder /app/services/contact/internal/delivery/http/swagger/docs /services/contact/internal/delivery/http/swagger/docs
+# Copy the binary from the builder stage
+COPY --from=builder /usr/src/app/app .
 
+# Command to run the application
 CMD [ "/app" ]
