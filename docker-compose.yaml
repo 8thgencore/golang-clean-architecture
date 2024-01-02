@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  # app:
+  #   build:
+  #     context: .
+  #     target: dev
+  #   ports:
+  #     - "8080:8080"
+  #   command: [ "make", "local_run" ]
+  #   environment:
+  #     POSTGRES_DB: clean_architecture
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #   volumes:
+  #     - .:/usr/src/app/
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   networks:
+  #     - service-network
+
+  postgres:
+    image: postgres:14
+    ports:
+      - "54328:5432"
+    environment:
+      POSTGRES_DB: clean_architecture
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U postgres -d clean_architecture"
+        ]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - service-network
+
+networks:
+  service-network:
+    driver: bridge
